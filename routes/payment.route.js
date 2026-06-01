@@ -6,7 +6,8 @@ import {
 
 const router = express.Router();
 
-router.get("/methods", getPaymentMethods);
 router.post("/initiate", initiatePayment);
+router.get("/methods", getPaymentMethods);
+
 
 export default router;

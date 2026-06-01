@@ -14,8 +14,9 @@ app.use(
 app.use(express.json());
 
 // all routes
+app.use("/",paymentRoute);
 app.use("/api", orderRoute);
-app.use("/api",paymentRoute);
+
 
 app.use(errorHandler);
 app.listen(PORT, () => {
