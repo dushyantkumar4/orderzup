@@ -13,4 +13,4 @@ const orderSchema = new Schema(
   { timestamps: true },
 );
 
-export default model("Order", orderSchema);
+export default model("PlaceOrder", orderSchema);

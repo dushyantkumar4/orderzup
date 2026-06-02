@@ -1,4 +1,4 @@
-import Order from "../models/PlaceOrder.js";
+import PlaceOrder from "../models/PlaceOrder.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 // place new order
@@ -26,7 +26,7 @@ export const createOrder = asyncHandler(async (req, res) => {
     throw new Error("All fields are required");
   }
 
-  const order = await Order.create({
+  const order = await PlaceOrder.create({
     productName,
     productQuantity,
     productWeight,
@@ -45,7 +45,7 @@ export const createOrder = asyncHandler(async (req, res) => {
 
 // Get all orders
 export const getAllOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find().sort({ createdAt: -1 });
+  const orders = await PlaceOrder.find().sort({ createdAt: -1 });
 
   res.status(200).json({
     success: true,
@@ -58,7 +58,7 @@ export const getAllOrders = asyncHandler(async (req, res) => {
 export const getSingleOrder = asyncHandler(async (req, res) => {
   const { orderId } = req.params;
 
-  const order = await Order.findById(orderId);
+  const order = await PlaceOrder.findById(orderId);
 
   if (!order) {
     res.status(404);
@@ -74,14 +74,14 @@ export const getSingleOrder = asyncHandler(async (req, res) => {
 export const editOrder = asyncHandler(async (req, res) => {
   const { orderId } = req.params;
 
-  const order = await Order.findById(orderId);
+  const order = await PlaceOrder.findById(orderId);
 
   if (!order) {
     res.status(404);
     throw new Error("Order not found");
   }
 
-  const updatedOrder = await Order.findByIdAndUpdate(orderId, req.body, {
+  const updatedOrder = await PlaceOrder.findByIdAndUpdate(orderId, req.body, {
     new: true,
     runValidators: true,
   });
@@ -97,12 +97,12 @@ export const editOrder = asyncHandler(async (req, res) => {
 export const deleteOrder = asyncHandler(async (req, res) => {
   const { orderId } = req.params;
 
-  const order = await Order.findById(orderId);
+  const order = await PlaceOrder.findById(orderId);
   if (!order) {
     res.status(404);
     throw new Error("Order not found");
   }
-  await Order.findByIdAndDelete(orderId);
+  await PlaceOrder.findByIdAndDelete(orderId);
   res.status(200).json({
     success: true,
     message: "Order deleted successfully",
